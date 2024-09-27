@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<script>
+		function startTime() {
+			const today = new Date();
+			let h = today.getHours();
+			let m = today.getMinutes();
+			let s = today.getSeconds();
+			m = checkTime(m);
+			s = checkTime(s);
+			document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+			setTimeout(startTime, 1000);
+		}
+
+		function checkTime(i) {
+			if (i < 10) { i = "0" + i };  // Add zero in front of numbers < 10
+			return i;
+		}
+	</script>
+	<style>
+		.hover-effect:hover {
+			text-decoration: underline;
+		}
+
+		.news_card {
+			transition: all 0.5s ease;
+		}
+
+		.news_card:hover {
+			transform: scale(1.1);
+			z-index: 999;
+		}
+
+		.news_card:hover~.news_card:not(:hover) {
+			filter: brightness(0.5) saturate(0) contrast(1.2) blur(20px);
+
+		}
+	</style>
+
+	<title>Habar Portal</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.png' %}" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/fontawesome-5.0.8/css/fontawesome-all.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/iconic/css/material-design-iconic-font.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animsition/css/animsition.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.min.css' %}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+	<!--===============================================================================================-->
+
+	<!-- Bootstrap CSS Link -->
+	<link rel="stylesheet" href="{% static 'blogy-html-master/blogy-html-master/dist/css/vendor/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'blogy-html-master/blogy-html-master/dist/css/main.css' %}">
+
+	<!-- Slick CSS Link -->
+	<link rel="stylesheet" href="{% static 'blogy-html-master/blogy-html-master/dist/css/vendor/slick.css' %}">
+	<link rel="stylesheet" href="{% static 'blogy-html-master/blogy-html-master/dist/css/vendor/slick-theme.css' %}">
+
+	<!-- Icon Library Link -->
+	<link rel="stylesheet" href="{% static 'blogy-html-master/blogy-html-master/dist/css/cloudflare.css' %}">
+
+
+</head>
+
+<body onload="startTime()" class="animsition">
+
+	<!-- Header -->
+
+	<header>
+		<!-- Header desktop -->
+		<div class="topbar">
+			<div class="content-topbar h-100 p-rl-30">
+				<div class="align-self-stretch size-w-0 pos-relative m-r-30">
+					<div class="trending_box">
+				
+
+							<span style="font-size:15px;" class="text-uppercase" id="sugunki">
+								Şugünki täzelikler:
+							</span>
+							<marquee scrollamount="8">
+								{% for trending in news_header %}
+								<a class="hover-effect text" style="font-size:16px"
+									href="{% url 'blog_detail' id=trending.id %}">{{ trending.title }}</a>
+								<span style="margin: 0 10px;" id="gyzyl">|</span>
+								{% endfor %}
+							</marquee>
+					
+							
+
+
+
+
+					</div>
+				</div>
+				<div class="darkmode">
+		
+	
+					<input type="checkbox" id="toggle">
+				
+					<div class="display">
+						<label for="toggle">
+							<div class="circle">
+								<svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+									<path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+								</svg>
+								<svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+									<path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
+								</svg>                               
+							</div>
+						</label>
+					</div>
+					</div>
+					
+				{% for info in weather %}
+				<div class="weather-info" style="display: inline-block; ">
+					<div class="weatherin"
+						style="display: flex; flex-direction:row; justify-content:center; align-items:center">
+						<div style="width: 72px; height:57px; position:relative; overflow:hidden; padding:7px 0">
+
+							<img src="{{ info.icon.img.url }}"
+								style=" object-fit:cover; display:block; width:120%; height:120%; transform: translate(15%, -8%);">
+						</div>
+						<p style="font-size: 16px;" class="text">{{ info.degree }} <span>&deg;</span> </p>
+
+					</div>
+
+				</div>
+				{% endfor %}
+				<span style="margin: 0 10px;">|</span>
+				<p style="margin: 0;" id="clock" style="font-size: 16px;"></p>
+			</div>
+		</div>
+
+		<!-- Header Mobile -->
+
+
+		<!--  -->
+		<div class="mainportal" style="display:flex; justify-content:center; align-items:center;">
+
+			<span data-tilt>
+				<div class="habarportal">
+
+					<a href="{% url 'index' %}">
+						<img src="{% static 'images/Habar_Portal_Logo.png' %}" width="320px" height="100px">
+					</a>
+
+
+				</div>
+			</span>
+
+
+
+
+		</div>
+
+		<!--  -->
+		<div class="wrap-main-nav">
+			<div class="main-nav">
+				<!-- Menu desktop -->
+				<nav class="menu-desktop">
+					<a class="logo-stick" href="{% url 'index' %}">
+						<img src="{% static 'images/icons/logo-01.png' %}" alt="LOGO">
+					</a>
+
+					<ul class="main-menu justify-content-center">
+						<li class="">
+							<a href="#" class="diller">Diller</a>
+							<ul class="sub-menu">
+								{% for language in languages %}
+								<li><a href="{% url 'index' %}?language={{language.title}}" id="categ"> 
+									{{language.title }}
+									</a></li>
+								{% endfor %}
+							</ul>
+						</li>
+
+						{% for category in categories %}
+						<li class="mega-menu-item">
+							<a id="categ" href="{% url 'index' %}?category={{category.title}}"> {{ category.title }}
+							</a>
+						</li>
+						{% endfor %}
+						<form class="form-inline my-2 my-lg-0" method="GET">
+							<input name="q" class="form-control mr-sm-2" id="search_input" type="search" placeholder="Gözleg"
+								aria-label="Search">
+							<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Gözle</button>
+						</form>
+
+
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</header>
+
+	<!-- Feature post -->
+
+
+	<!-- Post -->
+
+
+	<!-- Banner -->
+
+	<!-- POSTS -->
+
+
+	<!-- end of POSTS -->
+	<section class="section-padding latest-post-area">
+		<div class="container">
+
+			<div class="row">
+
+				{% for item in news_post %}
+
+				<div class="col-lg-4 col-md-6 reveal" style="margin: 10px 0;">
+					<div class="blog-item blog-item-sm post_container">
+						<div class="blog-item-image">
+							<a href="{% url 'blog_detail' id=item.id %}">
+								<img src="{{ item.img.url }}" alt="IMG" class="w-100" ">
+                            </a>
+                        </div>
+                        <div class=" blog-item-info">
+								<span class="fs-6 has-line" id="item_category"> {{ item.category }} </span>
+								<h5><a href="{% url 'blog_detail' id=item.id %}"> {{ item.title }} </a></h5>
+								<div class="blog-item-info-release">
+									<div id="date">
+
+										<img src="{% static 'svg/schedule-calendar-icon (1).svg' %}" width="19px" height="19px" style="margin-right:5px">	<span class="mini_info"> {{ item.created_at|date:"N j, Y" }} </span> {{ blog.view_count }}
+									</div>
+								</div>
+								<a href="{% url 'blog_detail' id=item.id %}" class="btn btn-link" id="read_more"> Ginişleyin
+									<svg width="18" height="12" viewBox="0 0 18 12" fill="none"
+										xmlns="http://www.w3.org/2000/svg" style="margin-top: 5px;">
+										<path d="M12.5 1.5L17 6M17 6L12.5 10.5M17 6H1" stroke="currentColor"
+											stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+								</a>
+						</div>
+					</div>
+				</div>
+
+
+				{% endfor %}
+
+			</div>
+
+		</div>
+
+
+		
+		
+		<div class="pagination_box">
+			<div class="pagination">
+				{% if news_post.has_previous %}
+					<a href="?page=1">&laquo; Ilkinji</a>
+					<a href="?page={{ news_post.previous_page_number }}">Öňki</a>
+				{% endif %}
+		
+				<!-- First two pages -->
+				{% for num in news_post.paginator.page_range %}
+					{% if num <= 2 %}
+						{% if num == news_post.number %}
+							<span class="current">{{ num }}</span>
+						{% else %}
+							<a href="?page={{ num }}">{{ num }}</a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+		
+				<!-- Ellipsis if needed -->
+				{% if news_post.number > 5 %}
+					<span>...</span>
+				{% endif %}
+		
+				<!-- Middle 5 pages -->
+				{% for num in news_post.paginator.page_range %}
+					{% if num >= news_post.number|add:'-2' and num <= news_post.number|add:'2' and num > 2 and num < news_post.paginator.num_pages|add:'-1' %}
+						{% if num == news_post.number %}
+							<span class="current">{{ num }}</span>
+						{% else %}
+							<a href="?page={{ num }}">{{ num }}</a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+		
+				<!-- Ellipsis if needed -->
+				{% if news_post.number < news_post.paginator.num_pages|add:'-4' %}
+					<span>...</span>
+				{% endif %}
+		
+				<!-- Last two pages -->
+				{% for num in news_post.paginator.page_range %}
+					{% if num > news_post.paginator.num_pages|add:'-2' %}
+						{% if num == news_post.number %}
+							<span class="current">{{ num }}</span>
+						{% else %}
+							<a href="?page={{ num }}">{{ num }}</a>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+		
+				{% if news_post.has_next %}
+					<a href="?page={{ news_post.next_page_number }}">Indiki</a>
+					<a href="?page={{ news_post.paginator.num_pages }}">Soňky &raquo;</a>
+				{% endif %}
+			</div>
+			
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer>
+
+
+		<div class="bg11">
+			<div class="container size-h-4 flex-c-c p-tb-15">
+				<span class="f1-s-1 cl0 txt-center">
+
+				
+						<p  class="f1-s-1 cl10">
+							Copyright &copy; Öwezow Kemal | TMHI 2024
+						</p>
+				</span>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<span class="fas fa-angle-up"></span>
+		</span>
+	</div>
+
+	<!-- Modal Video 01-->
+	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document" data-dismiss="modal">
+			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
+
+			<div class="wrap-video-mo-01">
+				<div class="video-mo-01">
+					<iframe src="https://www.youtube.com/embed/wJnBTPUQS5A?rel=0" allowfullscreen></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/animsition/js/animsition.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+	<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--===============================================================================================-->
+	<script src="{% static 'js/main.js' %}"></script>
+	<script src="{% static 'tilt.js-master/dest/tilt.jquery.js' %}"></script>
+	<script src="{% static 'js/daynight.js' %}"></script>
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/code_iconify_min.js' %}">   </script>
+
+
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/jquery-3.6.0.min.js' %}"></script>
+
+	<!-- Bootstrap JS Link -->
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/bootstrap.bundle.min.js' %}"></script>
+
+	<!-- Menu JS Link -->
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/menu.js' %}"></script>
+
+	<!-- Slick JS Link -->
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/slick.min.js' %}"></script>
+
+	<!-- Custom JS Link -->
+	<script src="{% static 'blogy-html-master/blogy-html-master/dist/js/main.js' %}"></script>
+
+	<script>
+		var toggle = document.getElementById('toggle')
+
+		toggle.onclick = function () {
+			document.body.classList.toggle("dark-theme");
+		}
+	</script>
+
+	
+</body>
+
+</html>
